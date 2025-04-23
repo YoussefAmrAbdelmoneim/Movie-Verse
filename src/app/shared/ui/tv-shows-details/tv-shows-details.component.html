@@ -1,0 +1,399 @@
+@if (content && credits && similar) {
+  <div class="min-h-screen mt-14 text-gray-900 dark:text-white transition-colors duration-300">
+    <div class="relative h-96 md:h-screen max-h-[70vh] overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-t from-gray-100 dark:from-gray-900 via-gray-100/70 dark:via-gray-900/70 to-transparent z-10"></div>
+      <img 
+        [src]="'https://image.tmdb.org/t/p/original' + content.backdrop_path" 
+        [alt]="content.title || content.name"
+        class="w-full h-full object-cover object-center"
+      >
+            <button (click)="goBack()" class="absolute cursor-pointer top-4 left-4 z-20 bg-gray-900/70 dark:bg-gray-900/70 hover:bg-gray-800/90 text-white p-3 rounded-full transition">
+        <i class="fas fa-arrow-left"></i>
+        <span class="sr-only">{{ 'details.back_button' | translate }}</span>
+      </button>
+    </div>
+      <div class="container mx-auto px-6 relative z-20 -mt-20 md:-mt-32">
+      <div class="flex flex-col md:flex-row gap-8">
+        <div class="w-full md:w-1/3 lg:w-1/4">
+          <img   
+            [src]="'https://image.tmdb.org/t/p/w500' + content.poster_path" 
+            [alt]="content.title || content.name"
+            class="w-full rounded-xl shadow-2xl border-4 border-gray-200 dark:border-gray-800"
+          >
+                    <div class="mt-6 flex flex-col space-y-3">
+            <button (click)="openModal()"
+            class="bg-red-600 cursor-pointer hover:bg-red-700 text-white py-3 rounded-lg font-medium transition flex items-center justify-center">
+      <i class="fas fa-play mr-2"></i> {{ 'details.watch_now' | translate }}
+    </button>
+          </div>
+        </div>
+          <div class="w-full md:w-2/3 lg:w-3/4">
+          <h1 class="text-3xl md:text-5xl font-bold mb-2">{{ content.title || content.name }}</h1>
+                    <div class="flex flex-wrap items-center gap-3 mb-6">
+            <span class="bg-yellow-500/20 px-3 py-1 rounded-full text-yellow-600 dark:text-yellow-400 flex items-center text-sm">
+              <i class="fas fa-star mr-1"></i>  
+              {{ content.vote_average | number:'1.1-1' }} 
+            </span>
+            <span class="bg-gray-200 dark:bg-gray-800/50 px-3 py-1 rounded-full text-gray-700 dark:text-gray-300 text-sm">
+              {{ (content.release_date || content.first_air_date) | date:'yyyy' }}
+            </span>
+            @if (content.runtime) {
+              <span class="bg-gray-200 dark:bg-gray-800/50 px-3 py-1 rounded-full text-gray-700 dark:text-gray-300 text-sm">
+                {{ content.runtime |duration }}
+              </span>
+            }
+            @if (content.media_type === 'tv') {
+              <span class="bg-gray-200 dark:bg-gray-800/50 px-3 py-1 rounded-full text-gray-700 dark:text-gray-300 text-sm">
+                {{ content.number_of_seasons }} {{"details.seasons.singular" | translate}}{{ content.number_of_seasons !== 1 ? 's' : '' }}
+              </span>
+              <span class="bg-gray-200 dark:bg-gray-800/50 px-3 py-1 rounded-full text-gray-700 dark:text-gray-300 text-sm">
+                {{ content.number_of_episodes }} {{"details.episode" | translate}}{{ content.number_of_episodes !== 1 ? 's' : '' }}
+              </span>
+            }
+            <span class="bg-gray-200 dark:bg-gray-800/50 px-3 py-1 rounded-full text-gray-700 dark:text-gray-300 text-sm">
+              {{ content.original_language | uppercase }}
+            </span>
+          </div>
+            <div class="flex flex-wrap gap-2 mb-6">
+            @for (genre of content.genres; track genre.id) {
+              <span class="bg-red-600/20 text-red-700 dark:text-red-400 px-3 py-1 rounded-full text-sm">
+                {{ genre.name }}
+              </span>
+            }
+          </div>
+            <div class="mb-8">
+            <h2 class="text-xl font-semibold mb-3">{{ 'details.overview' | translate }}</h2>
+            @if (content.overview) {
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed">{{ content.overview }}</p>}
+            @else {
+              <p class="text-gray-700 dark:text-gray-300 leading-relaxed">{{"details.noOverView" | translate}}</p>
+            }
+          </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            @if (content.media_type === 'tv') {
+              <div>
+                <h3 class="text-lg font-semibold mb-2">{{ 'details.first_air_date' | translate }}</h3>
+                <p class="text-gray-700 dark:text-gray-300">{{ content.first_air_date | date:'fullDate' }}</p>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold mb-2">{{ 'details.last_air_date' | translate }}</h3>
+                <p class="text-gray-700 dark:text-gray-300">{{ content.last_air_date | date:'fullDate' }}</p>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold mb-2">{{ 'details.status' | translate }}</h3>
+                <p class="text-gray-700 dark:text-gray-300">{{ content.status }}</p>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold mb-2">{{"details.type" | translate}}</h3>
+                <p class="text-gray-700 dark:text-gray-300">{{ content.type }}</p>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold mb-2">{{"details.networks" | translate}}</h3>
+                <div class="flex flex-wrap gap-2">
+                  @for (network of content.networks; track network.id) {
+                    @if (network.logo_path) {
+                      <img 
+                        [src]="'https://image.tmdb.org/t/p/w200' + network.logo_path" 
+                        [alt]="network.name"
+                        class="h-8 object-contain"
+                      >
+                    }
+                  }
+                </div>
+              </div>
+            }
+            @if (content.production_companies && content.production_companies.length > 0) {
+              <div>
+                <h3 class="text-lg font-semibold mb-2">{{ 'details.production_companies' | translate }}</h3>
+                <div class="flex flex-wrap gap-2">
+                  @for (company of content.production_companies; track company.id) {
+                    @if (company.logo_path) {
+                      <img 
+                        [src]="'https://image.tmdb.org/t/p/w200' + company.logo_path" 
+                        [alt]="company.name"
+                        class="h-8 object-contain"
+                      >
+                    }
+                  }
+                </div>
+              </div>
+            }
+          </div>
+              <div class="mb-8">
+                <h2 class="text-2xl font-bold mb-6">{{ 'details.images' | translate }}</h2>
+                <owl-carousel-o [options]="carouselImages">
+                  @for (image of images(); track image.file_path) {
+                    <ng-template carouselSlide>
+                      <div class="px-2">
+                        <div class="relative rounded-lg overflow-hidden shadow-lg group">
+                          <img 
+                            [src]="'https://image.tmdb.org/t/p/w500' + image.file_path" 
+                            [alt]="(content.title || content.name) + ' image'"
+                            class="w-full aspect-[3/2] object-cover"
+                            loading="lazy"
+                          >
+                          <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button
+                              (click)="selectedImage = image"
+                              class="bg-white/90 cursor-pointer hover:bg-white text-gray-900 font-medium px-4 py-2 rounded-lg flex items-center gap-2 transition-all"
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                              </svg>
+                              {{ 'details.view_full_size' | translate }}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+                  }
+                </owl-carousel-o>
+              </div>
+    @if (selectedImage) {
+      <div 
+        class="fixed mt-15 inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm transition-opacity duration-300"
+        [class]="selectedImage ? 'visible opacity-100' : 'invisible opacity-0'"
+        (click)="selectedImage = null"
+      >
+        <div class="relative max-w-4xl w-full mx-4" (click)="$event.stopPropagation()">
+          <button 
+            class="absolute cursor-pointer -top-12 right-0 text-white hover:text-gray-300 transition-colors duration-200"
+            (click)="selectedImage = null"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          
+          <div class="bg-gray-900 rounded-lg overflow-hidden shadow-2xl">
+            <img 
+              [src]="'https://image.tmdb.org/t/p/original' + selectedImage.file_path" 
+              [alt]="(content.title || content.name) + ' full size image'"
+              class="w-full max-h-[80vh] object-contain"
+            >
+            <div class="p-3 bg-gray-900 text-center text-gray-300 text-sm">
+              {{ selectedImage.width }}×{{ selectedImage.height }} | 
+              {{ 'details.resolution_info' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+          @if (content.seasons && content.seasons.length > 0) {
+            <div class="mb-8">
+              <button class="text-2xl cursor-pointer font-bold mb-6 flex items-center group" #season>
+                {{ 'details.seasons.plural' | translate }}
+                <i class="fas fa-chevron-down ml-2 text-lg opacity-70 group-hover:opacity-100 transition-all transform translate-y-px"></i>
+              </button>
+              @defer (on interaction(season)) {
+                <div class="space-y-4">
+                  @for (season of content.seasons; track season.id) {
+                    <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden transition-all hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-sm">
+                      <button 
+                        class="w-full cursor-pointer flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all duration-200 group"
+                        (click)="toggleSeason(season.season_number)"
+                      >
+                        <div class="flex items-center space-x-4">
+                          @if (season.poster_path) {
+                            <img 
+                              [src]="'https://image.tmdb.org/t/p/w92' + season.poster_path" 
+                              [alt]="season.name"
+                              class="w-16 h-16 object-cover rounded transition-all group-hover:scale-105"
+                            >
+                          } @else {
+                            <div class="w-16 h-16 bg-gray-200 dark:bg-gray-700 flex items-center justify-center rounded transition-all group-hover:bg-gray-300 dark:group-hover:bg-gray-600">
+                              <i class="fas fa-image text-gray-400 group-hover:text-gray-500 dark:group-hover:text-gray-300"></i>
+                            </div>
+                          }
+                          <div class="text-left">
+                            <h3 class="font-semibold group-hover:text-primary dark:group-hover:text-primary-400 transition-colors">{{ season.name }}</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300">
+                              {{ season.episode_count }} {{"details.episodes" | translate}} • {{ season.air_date | date:'yyyy' }}
+                            </p>
+                          </div>
+                        </div>
+                        <i class="fas fa-chevron-down transition-all duration-300 text-gray-500 group-hover:text-gray-700 dark:group-hover:text-gray-200" 
+                           [class.rotate-180]="selectedSeason === season.season_number"></i>
+                      </button>
+                                            <div class="overflow-y-auto transition-all duration-300" 
+                           [class.max-h-0]="selectedSeason !== season.season_number"
+                           [class.max-h-[1000px]]="selectedSeason === season.season_number">
+                        <div class="p-4 border-t border-gray-200 dark:border-gray-700">
+                          <div class="flex flex-col md:flex-row gap-6">
+                            @if (season.poster_path) {
+                              <img 
+                                [src]="'https://image.tmdb.org/t/p/w300' + season.poster_path" 
+                                [alt]="season.name"
+                                class="w-full md:w-1/3 rounded-lg"
+                              >
+                            }
+                            <div class="flex-1">
+                              <h4 class="font-bold text-lg mb-2">{{"details.seasonOverView" | translate}}</h4>
+                              <p class="text-gray-700 dark:text-gray-300 mb-4">
+                                {{ season.overview || 'details.noOverView' | translate }}
+                              </p>
+                              <div class="grid grid-cols-2 gap-4 text-sm">
+                                <div>
+                                  <p class="text-gray-500 dark:text-gray-400">{{"details.airDate" | translate}}</p>
+                                  <p class="text-gray-700 dark:text-gray-300">{{ season.air_date | date:'mediumDate' }}</p>
+                                </div>
+                                <div>
+                                  <p class="text-gray-500 dark:text-gray-400">{{"details.episodes" | translate}}</p>
+                                  <p class="text-gray-700 dark:text-gray-300">{{ season.episode_count }}</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                                        @if (selectedSeason === season.season_number && seasonEpisodes[season.season_number]) {
+                            <div class="mt-6">
+                              <h4 class="font-bold text-lg mb-4">{{"details.episodes" | translate}}</h4> 
+                              <div class="space-y-4">
+                                @for (episode of seasonEpisodes[season.season_number].episodes; track episode.id) {
+                                  <div class="flex cursor-pointer gap-4 p-3 rounded-lg bg-gray-100 dark:bg-gray-800/50"   [routerLink]="['/TvDetails', content.id, 'season', season.season_number, 'episode', episode.episode_number]"
+                                  >
+                                    @if (episode.still_path) { 
+                                      <img 
+                                        [src]="'https://image.tmdb.org/t/p/w200' + episode.still_path" 
+                                        [alt]="episode.name"
+                                        class="w-32 h-20 object-cover rounded"
+                                      > 
+                                    } @else {
+                                      <div class="w-32 h-20 bg-gray-200 dark:bg-gray-700 flex items-center justify-center rounded">
+                                        <i class="fas fa-image text-gray-400"></i>
+                                      </div>
+                                    }
+                                    <div class="flex-1">
+                                      <div class="flex justify-between items-start">
+                                        <h5 class="font-medium">
+                                          {{"details.episodes" | translate}} {{ episode.episode_number }}: {{ episode.name }}
+                                        </h5>
+                                        <span class="text-sm text-gray-600 dark:text-gray-400">
+                                          {{ episode.runtime }} {{"details.min" | translate}}
+                                        </span>
+                                      </div>
+                                      <p class="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
+                                        {{ episode.overview || 'details.noDescription' | translate }}
+                                      </p>
+                                      <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                                        {{"details.aired" | translate}} {{ episode.air_date | date:'mediumDate' }}
+                                      </p>
+                                    </div>
+                                  </div>
+                                }
+                              </div> 
+                            </div>
+                          }
+                        </div>
+                      </div>
+                    </div>
+                  }
+                </div>
+              }
+              @placeholder {
+                <div class="bg-gray-100 dark:bg-gray-800/50 rounded-lg p-6 text-center border border-dashed border-gray-300 dark:border-gray-700">
+                  <i class="fas fa-tv text-3xl text-gray-400 mb-3"></i>
+                  <h4 class="font-medium text-gray-600 dark:text-gray-300">{{"details.seasonsAvailable" | translate}}</h4>
+                  <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                    {{"details.clickSeasons" | translate}}
+                  </p>
+                </div>
+              }
+            </div>
+          }
+          @if (credits.cast && credits.cast.length > 0) {
+            <div class="mb-8">
+              <h2 class="text-2xl font-bold mb-6">{{ 'details.cast' | translate }}</h2>
+              <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                @for (person of credits.cast | slice:0:10; track person.id) {
+                  <div class="group cursor-pointer" [routerLink]="['/actorDetails',person.id]">
+                    <div class="relative rounded-lg overflow-hidden mb-2">
+                      @if (person.profile_path) {
+                        <img  
+                          [src]="'https://image.tmdb.org/t/p/w300' + person.profile_path" 
+                          [alt]="person.name"
+                          class="w-full h-48 object-cover group-hover:opacity-80 transition"
+                        >
+                      } @else {
+                        <div class="w-full h-48 bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
+                          <i class="fas fa-user text-gray-500 dark:text-gray-600 text-4xl"></i>
+                        </div>
+                      }
+                    </div>
+                    <h3 class="font-medium text-sm">{{ person.name }}</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-xs">{{ person.character }}</p>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+            @if (similar.results && similar.results.length > 0) {
+            <div class="mb-8">
+              <h2 class="text-2xl font-bold mb-6">{{ 'details.more_like_this' | translate }}</h2>
+              <owl-carousel-o [options]="carouselOptions">
+                @for (item of similar.results; track item.id) {
+                  <ng-template carouselSlide>
+                    <div class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 mx-2">
+                      <img 
+                        [src]="'https://image.tmdb.org/t/p/w500' + item.poster_path" 
+                        [alt]="item.title || item.name"
+                        class="w-full h-80 object-cover group-hover:opacity-80 transition duration-300"
+                      >
+                      <div class="absolute inset-0 bg-gradient-to-t from-black dark:from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-4">
+                        <h3 class="text-white font-semibold text-lg">{{ item.title || item.name }}</h3>
+                        <div class="flex items-center space-x-2 text-sm text-gray-300 mt-1">
+                          <span><i class="fas fa-star text-yellow-400"></i> {{ item.vote_average | number:'1.1-1' }}</span>
+                          <span>{{ (item.release_date || item.first_air_date) | date:'yyyy' }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                }
+              </owl-carousel-o>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+ @if (isModalOpen()) {
+  <div class="fixed mt-2 inset-0 z-50 overflow-y-auto overflow-x-hidden flex justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full bg-black bg-opacity-25">
+      <div class="relative p-4 w-full max-w-4xl max-h-full">
+          <div class="relative bg-gray-900 rounded-lg shadow-sm">
+              <div class="flex items-center justify-between p-4">
+                  <h3 class="text-xl font-semibold text-white">
+                    {{ 'details.trailer' | translate }} 
+                  </h3>
+                  <button type="button" 
+                          class="text-gray-400 hover:text-white cursor-pointer" 
+                          (click)="closeModal()">
+                      <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                      </svg>
+                      <span class="sr-only">{{ 'details.close_modal' | translate }}</span>
+                     </button>
+              </div>
+              <div class="p-4">
+                  <div class="aspect-w-16 aspect-h-9 w-full">
+                      @if (videoUrl()) {
+                          <iframe 
+                              class="w-full h-[400px] md:h-[500px] rounded-md"
+                              [src]="videoUrl()"
+                              frameborder="0"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                              allowfullscreen>
+                          </iframe>
+                      } @else {
+                          <div class="w-full h-[400px] md:h-[500px] bg-gray-800 rounded-md flex items-center justify-center text-white">
+                              <div class="text-center">
+                                  <i class="fas fa-exclamation-triangle text-4xl mb-3"></i>
+                                  <p class="text-lg">{{ 'details.trailer_not_available' | translate }}</p>
+                              </div>
+                          </div>
+                      } 
+                  </div>
+              </div>
+          </div> 
+      </div>
+  </div>
+  }
+  </div>
+}

@@ -1,0 +1,149 @@
+<section class="container mt-15 mx-auto px-4 py-8">
+  <div
+    class="max-w-6xl relative mx-auto bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden"
+  >
+    <button
+      (click)="goBack()"
+      class="absolute cursor-pointer top-4 left-4 z-20 bg-white/90 dark:bg-gray-900/90 hover:bg-white dark:hover:bg-gray-800 text-gray-900 dark:text-white p-3 rounded-full transition-all shadow-lg hover:shadow-xl hover:scale-105"
+      aria-label="Go back"
+    >
+      <i class="fas fa-arrow-left text-lg"></i>
+    </button>
+    <div class="grid md:grid-cols-4 gap-6 p-6">
+      <div class="md:col-span-1 space-y-4">
+        <div class="relative group overflow-hidden rounded-lg shadow-md">
+          <img
+            [src]="
+              'https://image.tmdb.org/t/p/w500' +
+              (episode()?.still_path || showDetails()?.poster_path)
+            "
+            [alt]="episode()?.name + ' still'"
+            class="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+          <div
+            class="absolute top-2 right-2 bg-black/80 text-yellow-400 px-2 py-1 rounded-full text-sm font-semibold flex items-center"
+          >
+            ★ {{ episode()?.vote_average | number : "1.1-1" }}
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white truncate">
+            {{ showDetails()?.name }}
+          </h3>
+
+          <div class="space-y-1 text-sm">
+            <p class="flex items-center text-gray-600 dark:text-gray-300">
+              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12z"
+                />
+                <path
+                  d="M10 5a1 1 0 011 1v3.586l1.707 1.707a1 1 0 01-1.414 1.414l-2-2A1 1 0 019 10V6a1 1 0 011-1z"
+                />
+              </svg>
+              {{ episode()?.runtime }} {{ "details.mins" | translate }}
+            </p>
+            <p class="flex items-center text-gray-600 dark:text-gray-300">
+              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fill-rule="evenodd"
+                  d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              {{ episode()?.air_date | date }}
+            </p>
+            <p class="flex items-center text-gray-600 dark:text-gray-300">
+              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                />
+              </svg>
+              S{{ episode()?.season_number }} E{{ episode()?.episode_number }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="md:col-span-3">
+        <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+          <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+            {{ episode()?.name }}
+          </h1>
+          <div class="flex space-x-2">
+            <span
+              class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 text-xs rounded-full"
+            >
+              {{ "details.episode" | translate }}
+            </span>
+          </div>
+        </div>
+
+        <div class="prose max-w-none dark:prose-invert mb-8">
+          <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+            {{ episode()?.overview || "details.noOverView" | translate }}
+          </p>
+        </div>
+        @if (episode()?.guest_stars?.length) {
+        <div class="mt-8">
+          <h3
+            class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center"
+          >
+            <svg
+              class="w-5 h-5 mr-2 text-yellow-500"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+              />
+            </svg>
+            {{ "details.guestStars" | translate }}
+          </h3>
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            @for (star of episode()?.guest_stars; track star.id) {
+            <div
+              class="text-center cursor-pointer transition-transform duration-200 hover:scale-105"
+              [routerLink]="['/actorDetails', star.id]"
+            >
+              <div class="relative group">
+                <img
+                  [src]="'https://image.tmdb.org/t/p/w200' + star.profile_path"
+                  class="w-20 h-20 rounded-full mx-auto object-cover border-2 border-transparent group-hover:border-yellow-400 transition-all"
+                />
+                <div
+                  class="absolute inset-0 rounded-full bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                >
+                  <svg
+                    class="w-8 h-8 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <p
+                class="mt-2 font-medium text-gray-900 dark:text-white truncate px-2"
+              >
+                {{ star.name }}
+              </p>
+              <p class="text-sm text-gray-500 truncate px-2">
+                {{ star.character }}
+              </p>
+            </div>
+            }
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

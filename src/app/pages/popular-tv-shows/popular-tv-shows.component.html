@@ -1,0 +1,114 @@
+<section>
+    <div class="min-h-screen p-4 md:p-8 mt-13">
+        <div class="mb-12">
+          <owl-carousel-o class="rounded-xl shadow-lg" [options]="carouselOptions">
+            @for (tv of popularTvSows().slice(0,5); track tv.id) {
+                <ng-template carouselSlide >
+                    <div class="relative h-64 md:h-96 w-full">
+                      <img 
+                        [src]="'https://image.tmdb.org/t/p/w500' + tv.poster_path" 
+                        [alt]="tv.title"
+                        class="w-full h-full object-cover"
+                      >
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                      <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white">
+                        <h2 class="text-xl md:text-3xl font-bold mb-2">{{ tv.name }}</h2>
+                        <div class="flex items-center space-x-4">
+                          <span class="flex items-center"> 
+                            <i class="fas fa-star text-yellow-400 mr-1"></i>
+                            {{ tv.vote_average | number:'1.1-1' }}
+                          </span>
+                          <span>{{ tv.first_air_date | date:'yyyy' }}</span>
+                        </div>
+                      </div>
+                    </div> 
+                  </ng-template>
+            }
+          </owl-carousel-o>
+        </div>
+      
+        <div class="container mx-auto">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 md:mb-0">
+              {{ 'home.sections.popularTv.title' | translate }}
+            </h1>
+          </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6 mb-8" id="moviesGrid">
+             @for (tv of popularTvSows()   ; track tv.id) { 
+                    <div class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+                        <a [routerLink]="['/TvDetails', tv.id]" class="block h-full">
+                          <img 
+                            [src]="'https://image.tmdb.org/t/p/w500' + tv.poster_path" 
+                            [alt]="tv.name"
+                            class="w-full h-64 sm:h-80 object-cover group-hover:opacity-80 transition duration-300"
+                          >
+                          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-4">
+                            <h3 class="text-white font-semibold text-lg">{{ tv.name }}</h3>
+                            <div class="flex items-center space-x-2 text-sm text-gray-300 mt-1">
+                              <span><i class="fas fa-star text-yellow-400"></i> {{ tv.vote_average | number:'1.1-1' }}</span>
+                              <span>{{ tv.first_air_date | date:'yyyy' }}</span>
+                            </div>
+                          </div>
+                        </a>
+                      </div>
+                
+        } 
+      </div>
+          <div class="flex justify-center mt-8">
+            <nav class="flex items-center space-x-2">
+              <button (click)="prevPage()"
+                id="prevPageBtn"
+                class="px-4 py-2 cursor-pointer rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                [disabled]="pageNumber() ==1"
+              >
+                {{'pagination.prev_button' | translate}}
+              </button>
+              
+              <div class="flex space-x-2" id="pageNumbers">
+                <button
+                  (click)="loadPopularTvSows(1)" 
+                  [ngClass]="{
+                    'bg-red-600 text-white border-red-600': pageNumber() === 1,
+                    'bg-white text-gray-900 dark:bg-gray-800 dark:text-white border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 transition': pageNumber() !== 1
+                  }"
+                  class="page-number cursor-pointer px-4 py-2 rounded-lg border"
+                >
+                {{'pagination.page_number1' | translate}}
+                </button>
+              
+                <button
+                  (click)="loadPopularTvSows(2)"
+                  [ngClass]="{
+                    'bg-red-600 text-white border-red-600': pageNumber() === 2,
+                    'bg-white text-gray-900 dark:bg-gray-800 dark:text-white border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 transition': pageNumber() !== 2
+                  }"
+                  class="page-number cursor-pointer px-4 py-2 rounded-lg border"
+                >
+                {{'pagination.page_number2' | translate}}
+                </button>  
+              
+                <button
+                  (click)="loadPopularTvSows(3)"
+                  [ngClass]="{
+                    'bg-red-600 text-white border-red-600': pageNumber() === 3,
+                    'bg-white text-gray-900 dark:bg-gray-800 dark:text-white border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 transition': pageNumber() !== 3
+                  }"
+                  class="page-number cursor-pointer px-4 py-2 rounded-lg border"
+                >
+                {{'pagination.page_number3' | translate}}
+                </button>
+              </div>
+              
+              
+              <button (click)="nextPage()"
+                id="nextPageBtn"
+                class="px-4 py-2 cursor-pointer rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+              >
+              {{'pagination.next_button' | translate}}
+              </button>
+            </nav>
+          </div>
+        </div>
+      </div>
+ 
+</section>

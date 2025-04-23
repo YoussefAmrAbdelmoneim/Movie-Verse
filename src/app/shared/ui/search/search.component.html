@@ -1,0 +1,207 @@
+<section>
+  <div
+  class="fixed inset-0 z-50 overflow-y-auto"
+  aria-labelledby="modal-title"
+  role="dialog"
+  aria-modal="true"
+>
+  <div
+    class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+  >
+    <div
+      class="fixed inset-0 bg-[rgba(0,0,0,0.8)] bg-opacity-75 transition-opacity"
+      aria-hidden="true"
+      (click)="closeModal()"
+    ></div>
+    <div
+      class="inline-block align-bottom bg-white dark:bg-gray-900 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full"
+    >
+      <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+        <div class="relative">
+          <div
+            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+          >
+            <svg
+              class="h-5 w-5 text-gray-400 dark:text-gray-500"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </div>
+          <input
+            type="text"
+            [(ngModel)]="searchQuery"
+            (ngModelChange)="search()"
+            class="block w-full pl-10 pr-12 py-3 border-0 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-red-500 rounded-md"
+            [placeholder]="'search.placeholder' | translate"
+            autofocus
+          />
+          <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+            <button
+              type="button"
+              class="inline-flex cursor-pointer items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+              (click)="search()"
+            >
+              {{ "search.button" | translate }}
+            </button>
+          </div>
+        </div>
+        <div class="mt-4 border-b border-gray-200 dark:border-gray-700">
+          <nav class="-mb-px flex space-x-8">
+            @for (tab of tabs; track tab.id) {
+            <button
+              (click)="setActiveTab(tab.id)"
+              [class]="
+                activeTab === tab.id
+                  ? 'border-red-500 cursor-pointer text-red-600 dark:text-red-500 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm'
+                  : 'border-transparent cursor-pointer text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm'
+              "
+            >
+              {{ "search.tabs." + tab.id | translate }}
+            </button>
+            }
+          </nav>
+        </div>
+        <div class="mt-4 max-h-96 overflow-y-auto">
+          @if (isLoading) {
+          <div class="flex justify-center items-center py-10">
+            <svg
+              class="animate-spin -ml-1 mr-3 h-8 w-8 text-red-500"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+          </div>
+          } @else if (searchResults.length === 0 && searchQuery.length > 0) {
+          <div class="text-center py-10">
+            <p class="text-gray-500 dark:text-gray-400">
+              {{ "search.noResults" | translate : { value: searchQuery } }}
+            </p>
+          </div>
+          } @else if (searchQuery.length === 0) {
+          <div class="text-center py-10">
+            <p class="text-gray-500 dark:text-gray-400">
+              {{ "search.startTyping" | translate }}
+            </p>
+          </div>
+          } @else {
+          <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+            @for (item of searchResults; track item.id) {
+            <li class="py-4">
+              @if (activeTab === 'movie') {
+              <a
+                [routerLink]="['/details', item.id]"
+                class="flex items-start space-x-4 hover:bg-gray-50 dark:hover:bg-gray-800 p-2 rounded-md"
+                (click)="closeModal()"
+              >
+                <img
+                  [src]="'https://image.tmdb.org/t/p/w92' + item.poster_path"
+                  [alt]="item.title + ' poster'"
+                  class="flex-none w-16 h-24 object-cover rounded-md"
+                />
+                <div class="min-w-0 flex-1">
+                  <h3 class="text-sm font-medium text-gray-900 dark:text-white">
+                    {{ item.title }}
+                  </h3>
+                  <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                    {{ item.release_date | date : "yyyy" }} •
+                    <span
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
+                    >
+                      {{ item.vote_average | number : "1.1-1" }}
+                    </span>
+                  </p>
+                  <p
+                    class="text-sm text-gray-500 dark:text-gray-400 mt-1 line-clamp-2"
+                  >
+                    {{ item.overview }}
+                  </p>
+                </div>
+              </a>
+              } @if (activeTab === 'tv') {
+              <a
+                [routerLink]="['/TvDetails', item.id]"
+                class="flex items-start space-x-4 hover:bg-gray-50 dark:hover:bg-gray-800 p-2 rounded-md"
+                (click)="closeModal()"
+              >
+                <img
+                  [src]="'https://image.tmdb.org/t/p/w92' + item.poster_path"
+                  [alt]="item.name + ' poster'"
+                  class="flex-none w-16 h-24 object-cover rounded-md"
+                />
+                <div class="min-w-0 flex-1">
+                  <h3 class="text-sm font-medium text-gray-900 dark:text-white">
+                    {{ item.name }}
+                  </h3>
+                  <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                    {{ item.first_air_date | date : "yyyy" }} •
+                    <span
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
+                    >
+                      {{ item.vote_average | number : "1.1-1" }}
+                    </span>
+                  </p>
+                  <p
+                    class="text-sm text-gray-500 dark:text-gray-400 mt-1 line-clamp-2"
+                  >
+                    {{ item.overview }}
+                  </p>
+                </div>
+              </a>
+              } @if (activeTab === 'person') {
+              <a
+                [routerLink]="['/actorDetails', item.id]"
+                class="flex items-start space-x-4 hover:bg-gray-50 dark:hover:bg-gray-800 p-2 rounded-md"
+                (click)="closeModal()"
+              >
+                <img
+                  [src]="'https://image.tmdb.org/t/p/w92' + item.profile_path"
+                  alt="{{ item.name }} photo"
+                  class="flex-none w-16 h-24 object-cover rounded-md"
+                />
+                <div class="min-w-0 flex-1">
+                  <h3 class="text-sm font-medium text-gray-900 dark:text-white">
+                    {{ item.name }}
+                  </h3>
+                  <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                    {{ item.known_for_department }}
+                  </p>
+                  <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                    {{ "search.details.knownFor" | translate }}
+                    @for (work of item.known_for; track work.id; let last =
+                    $last) {
+                    {{ work.title || work.name }}{{ !last ? ", " : "" }}
+                    }
+                  </p>
+                </div>
+              </a>
+              }
+            </li>
+            }
+          </ul>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>

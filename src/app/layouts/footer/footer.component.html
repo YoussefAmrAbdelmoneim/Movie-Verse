@@ -1,0 +1,150 @@
+<footer
+  class="bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800 transition-colors duration-300"
+>
+  <div class="container mx-auto px-6 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="space-y-4">
+        <div class="flex items-center space-x-2 rtl:space-x-reverse">
+          <span class="text-red-600 font-bold text-2xl">{{
+            "footer.brand.name1" | translate
+          }}</span>
+          <span class="text-gray-800 dark:text-white font-bold text-2xl">{{
+            "footer.brand.name2" | translate
+          }}</span>
+        </div>
+        <p class="text-gray-600 dark:text-gray-300 text-sm">
+          {{ "footer.brand.description" | translate }}
+        </p>
+        <div class="flex space-x-4 rtl:space-x-reverse">
+          <a
+            class="text-gray-500 hover:text-red-600 dark:hover:text-red-500 transition"
+          >
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a
+            class="text-gray-500 hover:text-red-600 dark:hover:text-red-500 transition"
+          >
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a
+            class="text-gray-500 hover:text-red-600 dark:hover:text-red-500 transition"
+          >
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a
+            class="text-gray-500 hover:text-red-600 dark:hover:text-red-500 transition"
+          >
+            <i class="fab fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-gray-800 dark:text-white font-semibold mb-4">
+          {{ "footer.quickLinks.title" | translate }}
+        </h3>
+        <ul class="space-y-2">
+          <li>
+            <a
+              routerLink="/home"
+              class="text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-500 text-sm transition"
+              >{{ "footer.quickLinks.home" | translate }}</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/popularMovies"
+              class="text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-500 text-sm transition"
+              >{{ "footer.quickLinks.movies" | translate }}</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/popularTvShows"
+              class="text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-500 text-sm transition"
+              >{{ "footer.quickLinks.tvShows" | translate }}</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/popularPeople"
+              class="text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-500 text-sm transition"
+              >{{ "footer.quickLinks.actors" | translate }}</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-gray-800 dark:text-white font-semibold mb-4">
+          {{ "footer.categories.title" | translate }}
+        </h3>
+        <ul class="space-y-2">
+          <li>
+            <a
+              class="text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-500 text-sm transition"
+              >{{ "footer.categories.action" | translate }}</a
+            >
+          </li>
+          <li>
+            <a
+              class="text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-500 text-sm transition"
+              >{{ "footer.categories.comedy" | translate }}</a
+            >
+          </li>
+          <li>
+            <a
+              class="text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-500 text-sm transition"
+              >{{ "footer.categories.horror" | translate }}</a
+            >
+          </li>
+          <li>
+            <a
+              class="text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-500 text-sm transition"
+              >{{ "footer.categories.sciFi" | translate }}</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-gray-800 dark:text-white font-semibold mb-4">
+          {{ "footer.newsletter.title" | translate }}
+        </h3>
+        <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">
+          {{ "footer.newsletter.description" | translate }}
+        </p>
+        <div class="flex">
+          <input
+            type="email"
+            [placeholder]="'footer.newsletter.placeholder' | translate"
+            class="px-4 py-2 text-sm bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-l focus:outline-none focus:ring-1 focus:ring-red-500 w-full"
+          />
+          <button
+            class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-r text-sm transition"
+          >
+            {{ "footer.newsletter.button" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="border-t border-gray-200 dark:border-gray-800 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center"
+    >
+      <p class="text-gray-500 dark:text-gray-400 text-sm mb-4 md:mb-0">
+        {{ "footer.copyright" | translate }}
+      </p>
+      <div class="flex space-x-6 rtl:space-x-reverse">
+        <a
+          class="text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-500 text-sm transition"
+          >{{ "footer.links.privacy" | translate }}</a
+        >
+        <a
+          class="text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-500 text-sm transition"
+          >{{ "footer.links.terms" | translate }}</a
+        >
+        <a
+          class="text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-500 text-sm transition"
+          >{{ "footer.links.contact" | translate }}</a
+        >
+      </div>
+    </div>
+  </div>
+</footer>

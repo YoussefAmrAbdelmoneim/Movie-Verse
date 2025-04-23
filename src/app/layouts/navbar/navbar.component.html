@@ -1,0 +1,430 @@
+<nav
+  class="bg-white transition-all duration-300 fixed z-50 w-full dark:bg-black border-b border-gray-200 dark:border-gray-800 shadow-xl"
+>
+  <div
+    class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-6 py-3"
+  >
+    <div class="flex items-center space-x-4 rtl:space-x-reverse">
+      <span class="text-red-600 font-bold text-3xl"
+        >{{ "navbar.brand1" | translate
+        }}<span class="text-black dark:text-white">{{
+          "navbar.brand2" | translate
+        }}</span></span
+      >
+      <div class="hidden lg:flex space-x-6 ml-10">
+        <a
+          routerLink="/home"
+          routerLinkActive="border-b-2 border-red-600"
+          aria-current="page"
+          class="text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-300 text-sm font-medium transition"
+          >{{ "navbar.links.home" | translate }}</a
+        >
+        <div class="relative group">
+          <button
+            class="flex cursor-pointer items-center text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-300 text-sm font-medium"
+          >
+            {{ "navbar.links.movies" | translate }}
+            <svg
+              class="w-4 h-4 ml-1"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </button>
+          <div
+            class="absolute left-0 z-20 hidden group-hover:block bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded w-48 shadow-xl"
+          >
+            <a
+              routerLink="/popularMovies"
+              routerLinkActive="border-b-2 border-red-600"
+              aria-current="page"
+              class="block px-4 py-2 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-900 text-sm"
+            >
+              {{ "navbar.links.popular" | translate }}</a
+            >
+            <a
+              routerLink="/nowPlaying"
+              routerLinkActive="border-b-2 border-red-600"
+              aria-current="page"
+              class="block px-4 py-2 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-900 text-sm"
+              >{{ "navbar.links.nowPlaying" | translate }}</a
+            >
+            <a
+              routerLink="/comingSoon"
+              routerLinkActive="border-b-2 border-red-600"
+              aria-current="page"
+              class="block px-4 py-2 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-900 text-sm"
+              >{{ "navbar.links.comingSoon" | translate }}</a
+            >
+            <a
+              routerLink="/topRated"
+              routerLinkActive="border-b-2 border-red-600"
+              aria-current="page"
+              class="block px-4 py-2 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-900 text-sm"
+              >{{ "navbar.links.topRated" | translate }}</a
+            >
+          </div>
+        </div>
+        <div class="relative group">
+          <button
+            class="flex cursor-pointer items-center text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-300 text-sm font-medium"
+          >
+            {{ "navbar.links.tvShows" | translate }}
+            <svg
+              class="w-4 h-4 ml-1"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </button>
+          <div
+            class="absolute left-0 z-20 hidden group-hover:block bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded w-48 shadow-xl"
+          >
+            <a
+              routerLink="/popularTvShows"
+              routerLinkActive="border-b-2 border-red-600"
+              aria-current="page"
+              class="block px-4 py-2 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-900 text-sm"
+              >{{ "navbar.links.popular" | translate }}</a
+            >
+            <a
+              routerLink="/airingToday"
+              routerLinkActive="border-b-2 border-red-600"
+              aria-current="page"
+              class="block px-4 py-2 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-900 text-sm"
+              >{{ "navbar.links.airingToday" | translate }}</a
+            >
+            <a
+              routerLink="/topRatedTv"
+              routerLinkActive="border-b-2 border-red-600"
+              aria-current="page"
+              class="block px-4 py-2 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-900 text-sm"
+              >{{ "navbar.links.topRated" | translate }}</a
+            >
+          </div>
+        </div>
+        <div class="relative group">
+          <button
+            class="flex cursor-pointer items-center text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-300 text-sm font-medium"
+          >
+            {{ "navbar.links.people" | translate }}
+            <svg
+              class="w-4 h-4 ml-1"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </button>
+          <div
+            class="absolute left-0 z-20 hidden group-hover:block bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded w-48 shadow-xl"
+          >
+            <a
+              routerLink="/popularPeople"
+              routerLinkActive="border-b-2 border-red-600"
+              aria-current="page"
+              class="block px-4 py-2 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-900 text-sm"
+              >{{ "navbar.links.popularPeople" | translate }}</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center space-x-6">
+      <button
+        id="theme-toggle"
+        type="button"
+        class="p-2 cursor-pointer flex items-center p-3 rounded-xl bg-gradient-to-r from-purple-50/50 to-pink-50/50 hover:from-purple-100 hover:to-pink-100 dark:from-gray-700/50 dark:to-gray-800/50 dark:hover:from-purple-900/30 dark:hover:to-pink-900/30 transition-all duration-300 group shadow-sm hover:shadow-purple-100 hover:scale-[1.02] dark:hover:shadow-gray-800"
+        (click)="toggleDarkMode()"
+      >
+        <svg
+          id="theme-toggle-dark-icon"
+          class="w-6 h-6 text-white"
+          [class.hidden]="!isDarkMode"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
+          ></path>
+        </svg>
+        <svg
+          id="theme-toggle-light-icon"
+          class="w-6 h-6"
+          [class.hidden]="isDarkMode"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+      </button>
+      <button
+        (click)="openSearchModal()"
+        class="p-2 cursor-pointer text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 rounded-lg focus:outline-none"
+        aria-label="Search"
+      >
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          ></path>
+        </svg>
+      </button>
+      @if (showSearchModal) {
+      <app-search (close)="closeSearchModal()"></app-search>
+      }
+      <div
+        class="relative inline-block text-left w-10 md:w-40 language-selector"
+        (clickOutside)="isMenuOpen = false"
+      >
+        <button
+          type="button"
+          class="inline-flex cursor-pointer justify-between items-center w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200"
+          (click)="isMenuOpen = !isMenuOpen"
+        >
+          {{
+            currentLanguage === "ar-EG"
+              ? ("navbar.languageSelector.arabic" | translate)
+              : ("navbar.languageSelector.english" | translate)
+          }}
+          <svg class="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+        @if (isMenuOpen) {
+        <div
+          class="absolute right-0 mt-2 w-full z-50 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 transition-all duration-150"
+        >
+          <div class="py-1">
+            <button
+              [class.hidden]="currentLang('en-US')"
+              (click)="onLanguageChange('en-US'); isMenuOpen = false"
+              class="w-full text-left px-4 py-2 cursor-pointer text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+            >
+              {{ "navbar.languageSelector.english" | translate }}
+            </button>
+            <button
+              [class.hidden]="currentLang('ar-EG')"
+              (click)="onLanguageChange('ar-EG'); isMenuOpen = false"
+              class="w-full text-left px-4 py-2 cursor-pointer text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+            >
+              {{ "navbar.languageSelector.arabic" | translate }}
+            </button>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+    <button
+      data-collapse-toggle="navbar-default"
+      type="button"
+      class="inline-flex items-center cursor-pointer p-2 w-10 h-10 justify-center text-sm text-gray-500 dark:text-gray-400 rounded-lg lg:hidden hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-600"
+      aria-controls="navbar-default"
+      aria-expanded="false"
+    >
+      <span class="sr-only">Open main menu</span>
+      <svg
+        class="w-5 h-5"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 17 14"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M1 1h15M1 7h15M1 13h15"
+        />
+      </svg>
+    </button>
+  </div>
+  <div class="hidden w-full lg:hidden" id="navbar-default">
+    <div class="px-2 pt-2 pb-3 space-y-1">
+      <a
+        routerLink="/home"
+        class="block px-3 py-2 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md text-sm font-medium"
+        >{{ "navbar.links.home" | translate }}</a
+      >
+      <div class="relative">
+        <button
+          type="button"
+          class="flex cursor-pointer items-center justify-between w-full px-3 py-2 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md text-sm font-medium"
+          aria-controls="mobile-movies-dropdown"
+          data-collapse-toggle="mobile-movies-dropdown"
+        >
+          {{ "navbar.links.movies" | translate }}
+          <svg
+            class="w-4 h-4 ml-1"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+        </button>
+        <ul id="mobile-movies-dropdown" class="hidden py-2 space-y-2 pl-4">
+          <li>
+            <a
+              routerLink="/popularMovies"
+              routerLinkActive="border-b-2 border-red-600"
+              aria-current="page"
+              class="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md text-sm"
+            >
+              {{ "navbar.links.popular" | translate }}</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/nowPlaying"
+              routerLinkActive="border-b-2 border-red-600"
+              aria-current="page"
+              class="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md text-sm"
+              >{{ "navbar.links.nowPlaying" | translate }}</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/comingSoon"
+              routerLinkActive="border-b-2 border-red-600"
+              aria-current="page"
+              class="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md text-sm"
+              >{{ "navbar.links.comingSoon" | translate }}</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/topRated"
+              routerLinkActive="border-b-2 border-red-600"
+              aria-current="page"
+              class="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md text-sm"
+              >{{ "navbar.links.topRated" | translate }}</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="relative">
+        <button
+          type="button"
+          class="flex cursor-pointer items-center justify-between w-full px-3 py-2 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md text-sm font-medium"
+          aria-controls="mobile-tv-dropdown"
+          data-collapse-toggle="mobile-tv-dropdown"
+        >
+          {{ "navbar.links.tvShows" | translate }}
+          <svg
+            class="w-4 h-4 ml-1"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+        </button>
+        <ul id="mobile-tv-dropdown" class="hidden py-2 space-y-2 pl-4">
+          <li>
+            <a
+              routerLink="/popularTvShows"
+              routerLinkActive="border-b-2 border-red-600"
+              aria-current="page"
+              class="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md text-sm"
+              >{{ "navbar.links.popular" | translate }}</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/airingToday"
+              routerLinkActive="border-b-2 border-red-600"
+              aria-current="page"
+              class="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md text-sm"
+              >{{ "navbar.links.airingToday" | translate }}</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/topRatedTv"
+              routerLinkActive="border-b-2 border-red-600"
+              aria-current="page"
+              class="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md text-sm"
+              >{{ "navbar.links.topRated" | translate }}</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="relative">
+        <button
+          type="button"
+          class="flex cursor-pointer items-center justify-between w-full px-3 py-2 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md text-sm font-medium"
+          aria-controls="mobile-people-dropdown"
+          data-collapse-toggle="mobile-people-dropdown"
+        >
+          {{ "navbar.links.people" | translate }}
+          <svg
+            class="w-4 h-4 ml-1"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+        </button>
+        <ul id="mobile-people-dropdown" class="hidden py-2 space-y-2 pl-4">
+          <li>
+            <a
+              routerLinkActive="border-b-2 border-red-600"
+              routerLink="/popularPeople"
+              class="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md text-sm"
+              >{{ "navbar.links.popularPeople" | translate }}</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

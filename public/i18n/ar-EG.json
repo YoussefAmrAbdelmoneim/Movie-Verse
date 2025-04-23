@@ -1,0 +1,184 @@
+{
+    "navbar": {
+      "brand1": "موفي ",
+      "brand2": "فيرس",
+      "links": {
+        "home": "الرئيسية",
+        "movies": "أفلام",
+        "tvShows": "مسلسلات",
+        "people": "أشخاص",
+        "popular": "الأكثر شعبية",
+        "nowPlaying": "يعرض الآن",
+        "comingSoon": "قريباً",
+        "topRated": "الأعلى تقييماً",
+        "airingToday": "يعرض اليوم",
+        "popularPeople": "أشخاص مشهورين"
+      },
+      "languageSelector": {
+        "english": "EN",
+        "arabic": "AR"
+      }
+    },
+    "footer": {
+      "brand": {
+        "name1": "موفي",
+        "name2": "فيرس",
+        "description": "الوجهة النهائية لعشاق الأفلام. اكتشف، شاهد واستمتع بأفضل الأفلام."
+      },
+      "quickLinks": {
+        "title": "روابط سريعة",
+        "home": "الرئيسية",
+        "movies": "أفلام",
+        "tvShows": "مسلسلات",
+        "actors":"الممثلون"
+      },
+      "categories": {
+        "title": "التصنيفات",
+        "action": "أكشن",
+        "comedy": "كوميديا",
+        "horror": "رعب",
+        "sciFi": "خيال علمي"
+      },
+      "newsletter": {
+        "title": "ابق على اطلاع",
+        "description": "اشترك للحصول على آخر أخبار الأفلام والتحديثات.",
+        "placeholder": "بريدك الإلكتروني",
+        "button": "اشتراك"
+      },
+      "copyright": "© 2025 موفي فيرس. جميع الحقوق محفوظة.",
+      "links": {
+        "privacy": "سياسة الخصوصية",
+        "terms": "شروط الخدمة",
+        "contact": "اتصل بنا"
+      }
+    },
+  "home":{
+    "hero": {
+      "watchNow": "شاهد الآن",
+      "moreInfo": "المزيد"
+    },
+    "tabs": {
+      "movies": "أفلام ",
+      "tvShows": " مسلسلات"   
+    },
+    "sections": {
+      "trending": {
+        "title": "الأكثر شهرة هذا الأسبوع",
+        "viewAll": "عرض الكل"
+      },
+      "nowPlaying": {
+        "title": "يعرض الآن",
+        "viewAll": "عرض الكل"
+      },
+      "popularMovies": {
+        "title": "أفلام شائعة",
+        "viewAll": "عرض الكل"
+      },
+      "topRatedMovies": {
+        "title": "أعلى الأفلام تقييمًا",
+        "viewAll": "عرض الكل"
+      },
+      "upcoming": {
+        "title": "قريبًا",
+        "viewAll": "عرض الكل"
+      },
+      "popularTv": {
+        "title": "مسلسلات شائعة",
+        "viewAll": "عرض الكل"
+      },
+      "onAir": {
+        "title": "تعرض حاليًا",
+        "viewAll": "عرض الكل"
+      },
+      "topRatedTv": {
+        "title": "أعلى المسلسلات تقييمًا",
+        "viewAll": "عرض الكل"
+      },
+      "details": "التفاصيل"
+    }
+  },
+  "pagination":{
+    "prev_button": "السابق",
+    "next_button": "التالي",
+         "page_number1":"١",
+        "page_number2":"٢",
+        "page_number3":"٣"
+  },
+  "details": {
+    "back_button": "رجوع",
+    "watch_now": "شاهد الآن",
+    "overview": "ملخص",
+    "release_date": "تاريخ الإصدار",
+    "budget": "الميزانية",
+    "revenue": "الإيرادات",
+    "first_air_date": "تاريخ العرض الأول",
+    "last_air_date": "تاريخ العرض الأخير",
+    "status": "الحالة",
+    "production_companies": "شركات الإنتاج",
+    "images": "الصور",
+    "cast": "طاقم التمثيل",
+    "more_like_this": "أشبه بهذا",
+    "trailer": "الإعلان",
+    "close_modal": "إغلاق النافذة",
+    "trailer_not_available": "الإعلان غير متوفر",
+    "seasons": {
+      "singular": "موسم",
+      "plural": "مواسم"
+    },
+    "resolution_info": "× (نسبة العرض)",
+    "episodes": "حلقات",
+    "episode": "حلقة",
+    "airDate": "تاريخ العرض",
+    "seasonOverView": "نظرة عامة على الموسم",
+    "seasonsAvailable": "المواسم المتاحة",
+    "clickSeasons": "انقر على زر 'المواسم' أعلاه لتصفح جميع المواسم",
+    "min": "دقيقة",
+    "mins": "دقائق",
+    "aired": "تاريخ العرض:",
+    "type": "النوع",
+    "networks": "الشبكات",
+    "guestStars": "النجوم الضيوف",
+    "view_full_size":"عرض بالحجم الكامل",
+    "noOverView":"  لا تتوفر معلومات ملخصة باللغة العربية بعد. يرجى التحقق لاحقًا أو المساهمة بكتابة ملخص!",
+    "noDescription":"لا يوجد وصف متاح."
+  },
+  "search": {
+    "placeholder": "ابحث عن أفلام، مسلسلات، أو أشخاص...",
+    "button": "بحث",
+    "noResults": "لا توجد نتائج لـ \"{{value}}\"",
+    "startTyping": "ابدأ الكتابة للبحث",
+    "tabs": {
+      "movie": "أفلام",
+      "tv": "مسلسلات",
+      "person": "أشخاص"
+    },
+    "details": { 
+      "releaseYear": "{{value}}",
+      "knownFor": "معروف بـ:",
+      "department": "{{value}}"
+    }
+  },
+  "people":{
+    "actors":"الممثلون",
+    "directors":"المخرجون",
+    "biography": "السيرة الذاتية",
+    "noBio": "لا تتوفر سيرة ذاتية باللغة العربية",
+    "poster": "الملصق",
+    "year": "السنة",
+    "title": "العنوان",
+    "role": "الدور",
+    "showing5": "عرض 5 من",
+    "credits": "الأعمال",
+      "knownFor": "معروف بـ:",
+  "filmography": "فيلموغرافيا"
+  },
+  "404": {
+    "title": "الفيلم مفقود!",
+    "404":"٤٠٤",
+    "message": "المشهد الذي تبحث عنه قد تم قطعه. ربما تحقق من مجموعة الأفلام المميزة لدينا؟",
+    "homeButton": "العودة للصفحة الرئيسية",
+    "moviesButton": "تصفح الأفلام",
+    "quote": "\"ليس كل من يتجول يكون ضائعًا... لكنك بالتأكيد كذلك.\"",
+    "quoteAuthor": "- المبرمج"
+  }
+  } 

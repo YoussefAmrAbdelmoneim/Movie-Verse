@@ -1,0 +1,593 @@
+<section class="relative mt-18 h-screen max-h-[80vh] overflow-hidden">
+  <div
+    class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-transparent z-10"
+  ></div>
+
+  @if (featuredContent()) {
+  <img
+    [src]="
+      'https://image.tmdb.org/t/p/original' + featuredContent().backdrop_path
+    "
+    [alt]="featuredContent().title || featuredContent().name"
+    class="w-full h-full object-cover object-center"
+  />
+  <div class="absolute bottom-0 left-0 z-20 p-6 md:p-12 max-w-3xl">
+    <h1 class="text-4xl md:text-5xl font-bold text-white mb-3 drop-shadow-lg">
+      {{ featuredContent().title || featuredContent().name }}
+    </h1>
+    <div class="flex flex-wrap items-center gap-4 mb-4">
+      <span
+        class="bg-yellow-500/20 px-3 py-1 rounded-full text-yellow-400 flex items-center text-sm"
+      >
+        <i class="fas fa-star mr-1"></i>
+        {{ featuredContent().vote_average | number : "1.1-1" }}
+      </span>
+      <span class="bg-gray-800/50 px-3 py-1 rounded-full text-gray-300 text-sm">
+        {{
+          featuredContent().release_date || featuredContent().first_air_date
+            | date : "yyyy"
+        }}
+      </span>
+      @if (featuredContent().runtime) {
+      <span class="bg-gray-800/50 px-3 py-1 rounded-full text-gray-300 text-sm">
+        {{ featuredContent().runtime | date : "H:mm" }}
+      </span>
+      } @if (featuredContent().media_type === 'tv') {
+      <span class="bg-gray-800/50 px-3 py-1 rounded-full text-gray-300 text-sm">
+        {{ featuredContent().number_of_seasons }}
+        {{
+          featuredContent().number_of_seasons !== 1
+            ? ("details.seasons.plural" | translate)
+            : ("season" | translate)
+        }}
+      </span>
+      }
+    </div>
+    <p class="text-gray-200 mb-6 line-clamp-3 drop-shadow-md">
+      {{ featuredContent().overview }}
+    </p>
+    <div class="flex flex-wrap gap-3">
+      <button
+        class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-medium transition flex items-center shadow-lg hover:shadow-red-600/30"
+      >
+        <i class="fas fa-play mr-2"></i> {{ "home.hero.watchNow" | translate }}
+      </button>
+      @if (featuredContent().media_type === 'movie') {
+      <button
+        [routerLink]="['/details', featuredContent().id]"
+        class="bg-gray-800/70 cursor-pointer hover:bg-gray-700/80 text-white px-6 py-3 rounded-lg font-medium transition flex items-center shadow-lg hover:shadow-gray-800/30"
+      >
+        <i class="fas fa-info-circle mr-2"></i>
+        {{ "home.hero.moreInfo" | translate }}
+      </button>
+      } @else {
+      <button
+        [routerLink]="['/TvDetails', featuredContent().id]"
+        class="bg-gray-800/70 cursor-pointer hover:bg-gray-700/80 text-white px-6 py-3 rounded-lg font-medium transition flex items-center shadow-lg hover:shadow-gray-800/30"
+      >
+        <i class="fas fa-info-circle mr-2"></i>
+        {{ "home.hero.moreInfo" | translate }}
+      </button>
+      }
+    </div>
+  </div>
+  }
+</section>
+<div
+  class="sticky z-20 transition-all duration-300 top-14 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-sm"
+>
+  <div class="container mx-auto px-6">
+    <div class="flex space-x-8 rtl:space-x-reverse">
+      <button
+        (click)="activeTab = 'movies'"
+        [class]="
+          activeTab === 'movies'
+            ? 'text-red-600 dark:text-red-500 font-semibold'
+            : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
+        "
+        class="py-4 transition cursor-pointer relative group"
+      >
+        {{ "home.tabs.movies" | translate }}
+        <span
+          [class]="activeTab === 'movies' ? 'w-full' : 'w-0'"
+          class="absolute bottom-0 left-0 h-0.5 bg-red-600 transition-all duration-300 group-hover:w-full"
+        ></span>
+      </button>
+      <button
+        (click)="activeTab = 'tv'"
+        [class]="
+          activeTab === 'tv'
+            ? 'text-red-600 dark:text-red-500 font-semibold'
+            : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
+        "
+        class="py-4 transition cursor-pointer relative group"
+      >
+        {{ "home.tabs.tvShows" | translate }}
+        <span
+          [class]="activeTab === 'tv' ? 'w-full' : 'w-0'"
+          class="absolute bottom-0 left-0 h-0.5 bg-red-600 transition-all duration-300 group-hover:w-full"
+        ></span>
+      </button>
+    </div>
+  </div>
+</div>
+<section class="py-12 transition-all duration-300">
+  <div class="container mx-auto px-6">
+    @if (activeTab === 'movies') {
+    <div class="mb-16">
+      <div class="flex justify-between items-center mb-8">
+        <h2
+          class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white flex items-center"
+        >
+          <i class="fas fa-chart-line text-red-600 mr-3"></i>
+          {{ "home.sections.trending.title" | translate }}
+        </h2>
+      </div>
+      <owl-carousel-o [options]="carouselOptions">
+        @for (item of trendingThisWeek(); track item.id) {
+        <ng-template carouselSlide>
+          <div
+            class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 mx-2"
+          >
+            <img
+              [src]="'https://image.tmdb.org/t/p/w500' + item.poster_path"
+              [alt]="item.title || item.name"
+              class="w-full h-80 object-cover group-hover:opacity-80 transition duration-300"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-4"
+            >
+              <h3 class="text-white font-semibold text-lg">
+                {{ item.title || item.name }}
+              </h3>
+              <div
+                class="flex items-center space-x-2 text-sm text-gray-300 mt-1"
+              >
+                <span
+                  ><i class="fas fa-star text-yellow-400"></i>
+                  {{ item.vote_average | number : "1.1-1" }}</span
+                >
+                <span>{{
+                  item.release_date || item.first_air_date | date : "yyyy"
+                }}</span>
+              </div>
+              <button
+                [routerLink]="['/details', item.id]"
+                class="mt-3 cursor-pointer bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded text-sm font-medium transition opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 self-start"
+              >
+                {{ "home.sections.details" | translate }}
+              </button>
+            </div>
+          </div>
+        </ng-template>
+        }
+      </owl-carousel-o>
+    </div>
+    <div class="mb-16">
+      <div class="flex justify-between items-center mb-8">
+        <h2
+          class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white flex items-center"
+        >
+          <i class="fas fa-film text-red-600 mr-3"></i>
+          {{ "home.sections.nowPlaying.title" | translate }}
+        </h2>
+        <a
+          routerLink="/nowPlaying"
+          class="text-red-600 hover:text-red-700 dark:hover:text-red-500 text-sm font-medium transition flex items-center"
+        >
+          {{ "home.sections.nowPlaying.viewAll" | translate }}
+          <i class="fas fa-chevron-right ml-1 text-xs"></i>
+        </a>
+      </div>
+      <owl-carousel-o [options]="carouselOptions">
+        @for (movie of nowPlayingMovies(); track movie.id) {
+        <ng-template carouselSlide>
+          <div
+            class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 mx-2"
+          >
+            <img
+              [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+              [alt]="movie.title"
+              class="w-full h-80 object-cover group-hover:opacity-80 transition duration-300"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-4"
+            >
+              <h3 class="text-white font-semibold text-lg">
+                {{ movie.title }}
+              </h3>
+              <div
+                class="flex items-center space-x-2 text-sm text-gray-300 mt-1"
+              >
+                <span
+                  ><i class="fas fa-star text-yellow-400"></i>
+                  {{ movie.vote_average | number : "1.1-1" }}</span
+                >
+                <span>{{ movie.release_date | date : "yyyy" }}</span>
+              </div>
+              <button
+                [routerLink]="['/details', movie.id]"
+                class="mt-3 cursor-pointer bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded text-sm font-medium transition opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 self-start"
+              >
+                {{ "home.sections.details" | translate }}
+              </button>
+            </div>
+          </div>
+        </ng-template>
+        }
+      </owl-carousel-o>
+    </div>
+    <div class="mb-16">
+      <div class="flex justify-between items-center mb-8">
+        <h2
+          class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white flex items-center"
+        >
+          <i class="fas fa-fire text-red-600 mr-3"></i>
+          {{ "home.sections.popularMovies.title" | translate }}
+        </h2>
+        <a
+          routerLink="/popularMovies"
+          class="text-red-600 hover:text-red-700 dark:hover:text-red-500 text-sm font-medium transition flex items-center"
+        >
+          {{ "home.sections.popularMovies.viewAll" | translate }}
+          <i class="fas fa-chevron-right ml-1 text-xs"></i>
+        </a>
+      </div>
+      <owl-carousel-o [options]="carouselOptions">
+        @for (movie of popularMovies(); track movie.id) {
+        <ng-template carouselSlide>
+          <div
+            class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 mx-2"
+          >
+            <img
+              [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+              [alt]="movie.title"
+              class="w-full h-80 object-cover group-hover:opacity-80 transition duration-300"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-4"
+            >
+              <h3 class="text-white font-semibold text-lg">
+                {{ movie.title }}
+              </h3>
+              <div
+                class="flex items-center space-x-2 text-sm text-gray-300 mt-1"
+              >
+                <span
+                  ><i class="fas fa-star text-yellow-400"></i>
+                  {{ movie.vote_average | number : "1.1-1" }}</span
+                >
+                <span>{{ movie.release_date | date : "yyyy" }}</span>
+              </div>
+              <button
+                [routerLink]="['/details', movie.id]"
+                class="mt-3 cursor-pointer bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded text-sm font-medium transition opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 self-start"
+              >
+                {{ "home.sections.details" | translate }}
+              </button>
+            </div>
+          </div>
+        </ng-template>
+        }
+      </owl-carousel-o>
+    </div>
+    <div class="mb-16">
+      <div class="flex justify-between items-center mb-8">
+        <h2
+          class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white flex items-center"
+        >
+          <i class="fas fa-trophy text-red-600 mr-3"></i>
+          {{ "home.sections.topRatedMovies.title" | translate }}
+        </h2>
+        <a
+          routerLink="/topRated"
+          class="text-red-600 hover:text-red-700 dark:hover:text-red-500 text-sm font-medium transition flex items-center"
+        >
+          {{ "home.sections.topRatedMovies.viewAll" | translate }}
+          <i class="fas fa-chevron-right ml-1 text-xs"></i>
+        </a>
+      </div>
+
+      <owl-carousel-o [options]="carouselOptions">
+        @for (ratedMovie of topRatedMovies(); track ratedMovie.id) {
+        <ng-template carouselSlide>
+          <div
+            class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 mx-2"
+          >
+            <img
+              [src]="'https://image.tmdb.org/t/p/w500' + ratedMovie.poster_path"
+              [alt]="ratedMovie.title"
+              class="w-full h-80 object-cover group-hover:opacity-80 transition duration-300"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-4"
+            >
+              <h3 class="text-white font-semibold text-lg">
+                {{ ratedMovie.title }}
+              </h3>
+              <div
+                class="flex items-center space-x-2 text-sm text-gray-300 mt-1"
+              >
+                <span
+                  ><i class="fas fa-star text-yellow-400"></i>
+                  {{ ratedMovie.vote_average | number : "1.1-1" }}</span
+                >
+                <span>{{ ratedMovie.release_date | date : "yyyy" }}</span>
+              </div>
+              <button
+                [routerLink]="['/details', ratedMovie.id]"
+                class="mt-3 cursor-pointer bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded text-sm font-medium transition opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 self-start"
+              >
+                {{ "home.sections.details" | translate }}
+              </button>
+            </div>
+          </div>
+        </ng-template>
+        }
+      </owl-carousel-o>
+    </div>
+    <div class="mb-16">
+      <div class="flex justify-between items-center mb-8">
+        <h2
+          class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white flex items-center"
+        >
+          <i class="fas fa-calendar-alt text-red-600 mr-3"></i>
+          {{ "home.sections.upcoming.title" | translate }}
+        </h2>
+        <a
+          routerLink="/comingSoon"
+          class="text-red-600 hover:text-red-700 dark:hover:text-red-500 text-sm font-medium transition flex items-center"
+        >
+          {{ "home.sections.upcoming.viewAll" | translate }}
+          <i class="fas fa-chevron-right ml-1 text-xs"></i>
+        </a>
+      </div>
+      <owl-carousel-o [options]="carouselOptions">
+        @for (movie of upcomingMovies(); track movie.id) {
+        <ng-template carouselSlide>
+          <div
+            class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 mx-2"
+          >
+            <img
+              [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+              [alt]="movie.title"
+              class="w-full h-80 object-cover group-hover:opacity-80 transition duration-300"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-4"
+            >
+              <h3 class="text-white font-semibold text-lg">
+                {{ movie.title }}
+              </h3>
+              <div
+                class="flex items-center space-x-2 text-sm text-gray-300 mt-1"
+              >
+                <span
+                  ><i class="fas fa-star text-yellow-400"></i>
+                  {{ movie.vote_average | number : "1.1-1" }}</span
+                >
+                <span>{{ movie.release_date | date : "yyyy" }}</span>
+              </div>
+              <button
+                [routerLink]="['/details', movie.id]"
+                class="mt-3 cursor-pointer bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded text-sm font-medium transition opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 self-start"
+              >
+                {{ "home.sections.details" | translate }}
+              </button>
+            </div>
+          </div>
+        </ng-template>
+        }
+      </owl-carousel-o>
+    </div>
+    } @if (activeTab === 'tv') {
+    <div class="mb-16">
+      <div class="flex justify-between items-center mb-8">
+        <h2
+          class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white flex items-center"
+        >
+          <i class="fas fa-chart-line text-red-600 mr-3"></i>
+          {{ "home.sections.trending.title" | translate }}
+        </h2>
+      </div>
+      <owl-carousel-o [options]="carouselOptions">
+        @for (item of trendingTvThisWeek(); track item.id) {
+        <ng-template carouselSlide>
+          <div
+            class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 mx-2"
+          >
+            <img
+              [src]="'https://image.tmdb.org/t/p/w500' + item.poster_path"
+              [alt]="item.title || item.name"
+              class="w-full h-80 object-cover group-hover:opacity-80 transition duration-300"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-4"
+            >
+              <h3 class="text-white font-semibold text-lg">
+                {{ item.title || item.name }}
+              </h3>
+              <div
+                class="flex items-center space-x-2 text-sm text-gray-300 mt-1"
+              >
+                <span
+                  ><i class="fas fa-star text-yellow-400"></i>
+                  {{ item.vote_average | number : "1.1-1" }}</span
+                >
+                <span>{{
+                  item.release_date || item.first_air_date | date : "yyyy"
+                }}</span>
+              </div>
+              <button
+                [routerLink]="['/TvDetails', item.id]"
+                class="mt-3 cursor-pointer bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded text-sm font-medium transition opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 self-start"
+              >
+                {{ "home.sections.details" | translate }}
+              </button>
+            </div>
+          </div>
+        </ng-template>
+        }
+      </owl-carousel-o>
+    </div>
+    <div class="mb-16">
+      <div class="flex justify-between items-center mb-8">
+        <h2
+          class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white flex items-center"
+        >
+          <i class="fas fa-tv text-red-600 mr-3"></i>
+          {{ "home.sections.popularTv.title" | translate }}
+        </h2>
+        <a
+          routerLink="/popularTvShows"
+          class="text-red-600 hover:text-red-700 dark:hover:text-red-500 text-sm font-medium transition flex items-center"
+        >
+          {{ "home.sections.popularTv.viewAll" | translate }}
+          <i class="fas fa-chevron-right ml-1 text-xs"></i>
+        </a>
+      </div>
+      <owl-carousel-o [options]="carouselOptions">
+        @for (show of popularTvShows(); track show.id) {
+        <ng-template carouselSlide>
+          <div
+            class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 mx-2"
+          >
+            <img
+              [src]="'https://image.tmdb.org/t/p/w500' + show.poster_path"
+              [alt]="show.name"
+              class="w-full h-80 object-cover group-hover:opacity-80 transition duration-300"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-4"
+            >
+              <h3 class="text-white font-semibold text-lg">{{ show.name }}</h3>
+              <div
+                class="flex items-center space-x-2 text-sm text-gray-300 mt-1"
+              >
+                <span
+                  ><i class="fas fa-star text-yellow-400"></i>
+                  {{ show.vote_average | number : "1.1-1" }}</span
+                >
+                <span>{{ show.first_air_date | date : "yyyy" }}</span>
+              </div>
+              <button
+                [routerLink]="['/TvDetails', show.id]"
+                class="mt-3 cursor-pointer bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded text-sm font-medium transition opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 self-start"
+              >
+                {{ "home.sections.details" | translate }}
+              </button>
+            </div>
+          </div>
+        </ng-template>
+        }
+      </owl-carousel-o>
+    </div>
+    <div class="mb-16">
+      <div class="flex justify-between items-center mb-8">
+        <h2
+          class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white flex items-center"
+        >
+          <i class="fas fa-satellite-dish text-red-600 mr-3"></i>
+          {{ "home.sections.onAir.title" | translate }}
+        </h2>
+        <a
+          routerLink="/airingToday"
+          class="text-red-600 hover:text-red-700 dark:hover:text-red-500 text-sm font-medium transition flex items-center"
+        >
+          {{ "home.sections.onAir.viewAll" | translate }}
+          <i class="fas fa-chevron-right ml-1 text-xs"></i>
+        </a>
+      </div>
+
+      <owl-carousel-o [options]="carouselOptions">
+        @for (show of onTheAirTvShows(); track show.id) {
+        <ng-template carouselSlide>
+          <div
+            class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 mx-2"
+          >
+            <img
+              [src]="'https://image.tmdb.org/t/p/w500' + show.poster_path"
+              [alt]="show.name"
+              class="w-full h-80 object-cover group-hover:opacity-80 transition duration-300"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-4"
+            >
+              <h3 class="text-white font-semibold text-lg">{{ show.name }}</h3>
+              <div
+                class="flex items-center space-x-2 text-sm text-gray-300 mt-1"
+              >
+                <span
+                  ><i class="fas fa-star text-yellow-400"></i>
+                  {{ show.vote_average | number : "1.1-1" }}</span
+                >
+                <span>{{ show.first_air_date | date : "yyyy" }}</span>
+              </div>
+              <button
+                [routerLink]="['/TvDetails', show.id]"
+                class="mt-3 cursor-pointer bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded text-sm font-medium transition opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 self-start"
+              >
+                {{ "home.sections.details" | translate }}
+              </button>
+            </div>
+          </div>
+        </ng-template>
+        }
+      </owl-carousel-o>
+    </div>
+    <div class="mb-16">
+      <div class="flex justify-between items-center mb-8">
+        <h2
+          class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white flex items-center"
+        >
+          <i class="fas fa-trophy text-red-600 mr-3"></i>
+          {{ "home.sections.topRatedTv.title" | translate }}
+        </h2>
+        <a
+          routerLink="/topRatedTv"
+          class="text-red-600 hover:text-red-700 dark:hover:text-red-500 text-sm font-medium transition flex items-center"
+        >
+          {{ "home.sections.topRatedTv.viewAll" | translate }}
+          <i class="fas fa-chevron-right ml-1 text-xs"></i>
+        </a>
+      </div>
+
+      <owl-carousel-o [options]="carouselOptions">
+        @for (show of topRatedTvShows(); track show.id) {
+        <ng-template carouselSlide>
+          <div
+            class="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 mx-2"
+          >
+            <img
+              [src]="'https://image.tmdb.org/t/p/w500' + show.poster_path"
+              [alt]="show.name"
+              class="w-full h-80 object-cover group-hover:opacity-80 transition duration-300"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-4"
+            >
+              <h3 class="text-white font-semibold text-lg">{{ show.name }}</h3>
+              <div
+                class="flex items-center space-x-2 text-sm text-gray-300 mt-1"
+              >
+                <span
+                  ><i class="fas fa-star text-yellow-400"></i>
+                  {{ show.vote_average | number : "1.1-1" }}</span
+                >
+                <span>{{ show.first_air_date | date : "yyyy" }}</span>
+              </div>
+              <button
+                [routerLink]="['/TvDetails', show.id]"
+                class="mt-3 cursor-pointer bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded text-sm font-medium transition opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 self-start"
+              >
+                {{ "home.sections.details" | translate }}
+              </button>
+            </div>
+          </div>
+        </ng-template>
+        }
+      </owl-carousel-o>
+    </div>
+    }
+  </div>
+</section>

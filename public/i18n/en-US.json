@@ -1,0 +1,185 @@
+{
+    "navbar": {
+      "brand1": "Movie", 
+      "brand2": "Verse", 
+      "links": {
+        "home": "Home",
+        "movies": "Movies",
+        "tvShows": "TV Shows",
+        "people": "People",
+        "popular": "Popular",
+        "nowPlaying": "Now Playing",
+        "comingSoon": "Coming Soon",
+        "topRated": "Top Rated",
+        "airingToday": "Airing Today",
+        "popularPeople": "Popular People"
+      },
+      "languageSelector": {
+        "english": "EN",
+        "arabic": "AR"
+      }
+    },
+  
+      "footer": {
+        "brand": {
+          "name1": "Movie",
+          "name2": "Verse",
+          "description": "The ultimate destination for movie lovers. Discover, watch, and enjoy the best films."
+        },
+        "quickLinks": {
+          "title": "Quick Links",
+          "home": "Home",
+          "movies": "Movies",
+          "tvShows": "TV Shows",
+          "actors":"Actors"
+        },
+        "categories": {
+          "title": "Categories",
+          "action": "Action",
+          "comedy": "Comedy",
+          "horror": "Horror",
+          "sciFi": "Sci-Fi"
+        },
+        "newsletter": {
+          "title": "Stay Updated",
+          "description": "Subscribe to get the latest movie news and updates.",
+          "placeholder": "Your email",
+          "button": "Subscribe"
+        },
+        "copyright": "© 2025 MovieVerse. All rights reserved.",
+        "links": {
+          "privacy": "Privacy Policy",
+          "terms": "Terms of Service",
+          "contact": "Contact Us"
+        }
+      },
+     "home": {
+        "hero": {
+          "watchNow": "Watch Now",
+          "moreInfo": "More Info"
+        },
+        "tabs": {
+          "movies": "Movies",
+          "tvShows": "TV Shows"
+        },
+        "sections": {
+          "trending": {
+            "title": "Trending This Week",
+            "viewAll": "View All"
+          },
+          "nowPlaying": {
+            "title": "Now Playing",
+            "viewAll": "View All"
+          },
+          "popularMovies": {
+            "title": "Popular Movies",
+            "viewAll": "View All"
+          },
+          "topRatedMovies": {
+            "title": "Top Rated Movies",
+            "viewAll": "View All"
+          },
+          "upcoming": {
+            "title": "Coming Soon",
+            "viewAll": "View All"
+          },
+          "popularTv": { 
+            "title": "Popular TV Shows",
+            "viewAll": "View All"
+          },
+          "onAir": {
+            "title": "Currently Airing",
+            "viewAll": "View All"
+          },
+          "topRatedTv": {
+            "title": "Top Rated TV Shows",
+            "viewAll": "View All"
+          },
+          "details": "Details"
+        }
+      },
+      "pagination":{
+        "prev_button": "Prev",
+        "next_button": "Next",
+        "page_number1":"1",
+        "page_number2":"2",
+        "page_number3":"3"
+      },
+      "details": {
+          "back_button": "Back",
+          "watch_now": "Watch Now",
+          "overview": "Overview",
+          "release_date": "Release Date",
+          "budget": "Budget",
+          "revenue": "Revenue",
+          "first_air_date": "First Air Date",
+          "last_air_date": "Last Air Date",
+          "status": "Status",
+          "production_companies": "Production Companies",
+          "images": "Images",
+          "cast": "Cast",
+          "more_like_this": "More Like This",
+          "trailer": "Trailer",
+          "close_modal": "Close modal",
+          "trailer_not_available": "Trailer not available",
+          "seasons": {
+            "singular": "season",
+            "plural": "seasons"
+          },
+          "resolution_info": "× (aspect ratio)",
+          "episodes": "Episodes",
+          "episode": "Episode",
+          "airDate":"Air Date",
+          "seasonOverView":"Season Overview",
+          "seasonsAvailable":"Seasons Available",
+          "clickSeasons":"Click the 'Seasons' button above to browse through all seasons",
+          "min":"min",
+          "mins":"mins",
+          "aired":"Aired:",
+          "type":"Type",
+          "networks":"Networks",
+          "guestStars":"Guest Stars",
+          "view_full_size":"View Full Size",
+          "noOverView":"  We don't have an overview available in English yet. Check back later or contribute one!",
+          "noDescription":"No description available."
+        },
+        "search": { 
+          "placeholder": "Search for movies, TV shows, or people...",
+          "button": "Search",
+          "noResults": "No results found for \"{{value}}\"",
+          "startTyping": "Start typing to search",
+          "tabs": {
+            "movie": "Movies",
+            "tv": "TV Shows",
+            "person": "People"
+          },
+          "details": {
+            "releaseYear": "{{value}}",
+            "knownFor": "Known for:",
+            "department": "{{value}}"
+          }
+        },
+        "people":{
+          "actors":"Actors",
+          "directors":"Directors",
+          "biography":"Biography",
+          "noBio": "No biography available in English.",
+          "poster":"Poster",
+          "year":"Year",
+          "title":"Title", 
+          "role":"Role",
+          "showing5":"Showing 5 of ",
+          "credits":"credits ",
+          "knownFor":" Known for: ",
+          "filmography":"Filmography"
+        },
+        "404": {
+          "title": "Reel Missing!",
+          "404":"404",
+          "message": "The scene you're looking for has been cut. Maybe check our featured collection?",
+          "homeButton": "Back to Home",
+          "moviesButton": "Browse Movies",
+          "quote": "\"Not all those who wander are lost... but you definitely are.\"",
+          "quoteAuthor": "- The Programmer"
+        }
+  }
